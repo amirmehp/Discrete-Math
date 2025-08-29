@@ -111,7 +111,7 @@ def identity_matrix(n):
 def is_antisymetric(m):
     
     if len(m[0]) == len(m):
-        m = rasand(m, transpose(m))
+        m = meet_matrix(m, transpose(m))
         
         ################
         # TODO:
@@ -144,14 +144,14 @@ def is_transitive(m):
         return False
 
 def symetric_closure(m):
-    return vast(m, identity_matrix(len(m)))
+    return join_matrix(m, identity_matrix(len(m)))
 
 def antisymetric_closure(m):
     return identity_matrix(len(m))
 
 def transmitive_closure(m):
     for i in range(len(m[0])):
-        m = vast(m, m)
+        m = join_matrix(m, m)
     return m
 
 # TODO: Add RoS and SoR to the CLI
