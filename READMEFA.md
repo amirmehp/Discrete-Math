@@ -5,11 +5,11 @@
 
 ## نحوه ی اجرا
 - با دستور زیر میتونید CLI رو اجرا کنید:
-```bash
+```sh
 python3 main.py
 ```
 - یا برای ویندوز:
-```batchscript
+```powershell
 python main.py
 ```
 
