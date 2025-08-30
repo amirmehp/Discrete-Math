@@ -56,7 +56,7 @@ funcs = [
     "Eulerian Path",
     "Dijkstra's Algorithm For Shortest Path"
 ]
-
+print("+------------[MENU]------------+")
 for func in funcs:
     print(f"\033[96m\033[1m{i}) {func}\033[0m")
     i += 1
