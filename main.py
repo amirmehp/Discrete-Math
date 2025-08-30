@@ -1,4 +1,5 @@
 from dimal import *
+from trutht import main as tt
 
 def error(text):
     print(f"\033[91m\033[4mErr: {text}\033[0m")
@@ -54,7 +55,8 @@ funcs = [
     "Transpose Matrix",
     "Calculate RoS",
     "Eulerian Path",
-    "Dijkstra's Algorithm For Shortest Path"
+    "Dijkstra's Algorithm For Shortest Path",
+    "Generate Truth Tables"
 ]
 print("+------------[MENU]------------+")
 for func in funcs:
@@ -213,5 +215,8 @@ while True:
             start = input("Enter the starting Node: ")
             end = input("Enter the ending Node: ")
             dijkstra(start, end, adj, weight)
+
+        case "20":
+            tt()
         case default:
             print(f"Err: Invalid Input `{in1}`")

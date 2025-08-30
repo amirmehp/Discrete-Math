@@ -4,27 +4,55 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 def draw_matrix_graph(matrix):
-    # TODO: make it directional
     n = len(matrix)
+
     angles = np.linspace(0, 2 * np.pi, n, endpoint=False)
     x = np.cos(angles)
     y = np.sin(angles)
-    fig, ax = plt.subplots(figsize=(8,8))
+
+    fig, ax = plt.subplots(figsize=(10, 10))
+
     for i in range(n):
         for j in range(n):
             if matrix[i][j]:
-                ax.plot([x[i], x[j]], [y[i], y[j]], 'k-', alpha=0.5, linewidth=1)
+                dx = x[j] - x[i]
+                dy = y[j] - y[i]
 
-    ax.scatter(x, y, s=500, c='skyblue', edgecolors='black')
+                dist = np.sqrt(dx**2 + dy**2)
 
+                line_length = dist * 0.85
+                angle = np.arctan2(dy, dx)
+
+                ax.arrow(x[i], y[i], 
+                         line_length * np.cos(angle), 
+                         line_length * np.sin(angle), 
+                         head_width=0.05, 
+                         head_length=0.1, 
+                         fc='black', 
+                         ec='black',
+                         alpha=0.5,
+                         length_includes_head=True)
+
+    ax.scatter(x, y, s=500, c='skyblue', edgecolors='black', zorder=10)
+    
     for i in range(n):
-        ax.text(x[i], y[i], str(i), ha='center', va='center', fontweight='bold')
+        ax.text(x[i], y[i], str(i), 
+                ha='center', 
+                va='center', 
+                fontweight='bold', 
+                fontsize=12,
+                zorder=11)
 
     ax.set_xlim(-1.5, 1.5)
     ax.set_ylim(-1.5, 1.5)
+    ax.set_aspect('equal')
     ax.axis('off')
 
+    plt.tight_layout()
     plt.show()
 
 
@@ -141,8 +169,6 @@ def transmitive_closure(m):
         m = join_matrix(m, m)
     return m
 
-# TODO: Add RoS and SoR to the CLI
-
 def deg(m):
     degrees = [0]*len(m)
     for i in range(len(matrix[0])):
@@ -171,21 +197,33 @@ def is_subgraph(g, h):
             
     return True
 
-def is_matrix_connected(m):
-    # TODO: Fix
-    n = []
-    for i in range(0, len(m[0])):
-        row = []
-        for j in range(0, len(m)):
-            if i == j:
-                row.append(0)
-            else:
-                row.append(m[i][j])
-        n.append(row)
-    if (m == n) and is_symetric(m):
-        return True
-    else:
+def dfs(graph, start, path):
+    stack = [start]
+    while stack:
+        vertex = stack[-1]
+        if graph[vertex]:  
+            next_vertex = graph[vertex].pop()
+            graph[next_vertex].remove(vertex)
+            stack.append(next_vertex) 
+        else:
+            path.append(stack.pop())
+
+def is_matrix_connected(matrix):
+    def dfs(node, visited):
+        visited[node] = True
+        for neighbor in range(len(matrix)):
+            if matrix[node][neighbor] and not visited[neighbor]:
+                dfs(neighbor, visited)
+                
+    if not matrix or not matrix[0]:
         return False
+
+    n = len(matrix)
+    visited = [False] * n
+
+    dfs(0, visited)
+
+    return all(visited)
 
 def path_length(m, w, path):
     length = 0
@@ -198,17 +236,6 @@ def path_length(m, w, path):
         else:
             length += w[u][v]
     return length
-
-def dfs(graph, start, path):
-    stack = [start]
-    while stack:
-        vertex = stack[-1]
-        if graph[vertex]:  
-            next_vertex = graph[vertex].pop()
-            graph[next_vertex].remove(vertex)
-            stack.append(next_vertex) 
-        else:
-            path.append(stack.pop())
 
 def eulerian_path(g):
     adj = {}
