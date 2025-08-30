@@ -90,30 +90,46 @@ while True:
             print(bool_sum(n1, n2))
 
         case "3":
-            pass
+             m = get_matrices(1)[0]
+             draw_matrix_graph(m)
         case "4":
             n = int(input("Enter the number of rows and cols: "))
             for row in identity_matrix(n):
                 print(row)
         case "5":
             m = get_matrices(1)[0]
-            print(is_matrix_antisymetric(m))
+            if is_matrix_antisymetric(m):
+                print("The Matrix is Antisymetric")
+            else:
+                print("The Matrix is NOT Antisymetric") 
 
         case "6":
             m = get_matrices(1)[0]
-            print(is_matrix_connected(m))
+            if is_matrix_connected(m):
+                print("The Matrix is Connected")
+            else:
+                print("The Matrix is NOT Connected") 
 
         case "7":
             m = get_matrices(1)[0]
-            print(is_matrix_symetric(m))
+            if is_matrix_symetric(m):
+                print("The Matrix is Symetric")
+            else:
+                print("The Matrix is NOT Symetric") 
 
         case "8":
             m = get_matrices(1)[0]
-            print(is_matrix_transitive(m))
+           if is_matrix_transitive(m):
+                print("The Matrix is Transitive")
+            else:
+                print("The Matrix is NOT Transitive") 
 
         case "9":
             m1, m2 = get_matrices(2)
-            print(is_subgraph(m1, m2))
+            if is_subgraph(m):
+                print("The Matrix is Subgraph")
+            else:
+                print("The Matrix is NOT Subgraph") 
 
         case "10":
             m1, m2 = get_matrices(2)
@@ -124,7 +140,7 @@ while True:
             print(meet_matrix(m1, m2))
 
         case "12":
-            m = get_matrices(1)
+            m = get_matrices(1)[0]
             index = int(input("Enter the node index: "))
             print(node_degree(m, index))
 
@@ -153,15 +169,16 @@ while True:
             print(path_length(m, w, path))
 
         case "14":
-            m = get_matrices(1)
+            m = get_matrices(1)[0]
             print(symetric_closure(m))
 
         case "15":
-            m = get_matrices(1)
+            m = get_matrices(1)[0]
             print(transmitive_closure(m))
 
         case "16":
-            m = get_matrices(1)
+            m = get_matrices(1)[0]
             print(transpose(m))
+            
         case default:
             print(f"Err: Invalid Input `{in1}`")

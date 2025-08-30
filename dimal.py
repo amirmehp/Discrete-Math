@@ -90,7 +90,7 @@ def transpose(m):
         transposed.append(row)
     return transposed
 
-def is_symetric(m):
+def is_matrix_symetric(m):
     if m == transpose(m):
         return True
     else:
@@ -108,36 +108,23 @@ def identity_matrix(n):
         m.append(row)
     return m
 
-def is_antisymetric(m):
-    
+def is_matrix_antisymetric(m):
     if len(m[0]) == len(m):
         m = meet_matrix(m, transpose(m))
-        
-        ################
-        # TODO:
-        # is_others_zero = False
-        # qotr = []
-        # for i in range(0, len(m[0])):
-        #     for j in range(0, len(m)):
-        #         if i == j:
-        #             qotr.append(m[i][j])
-        #         elif m[i][j] == 0:
-        #             is_others_zero = True
+        qotr = []
+        for i in range(0, len(m[0])):
+            for j in range(0, len(m)):
+                if i == j:
+                    qotr.append(m[i][j])
+                elif m[i][j] != 0:
+                    return False
+        for n in qotr:
+            if n <= 1:
+                return True
+            else:
+                return False
 
-        # for n in qotr:
-        #     if n <= 1:
-        #         return True
-        #     else:
-        #         return False
-
-        ##################
-        
-        if m <= identity_matrix(len(m)):
-            return True
-        else:
-            return False
-
-def is_transitive(m):
+def is_matrix_transitive(m):
     if bool_multiply(m, m) <= m:
         return True
     else:
@@ -184,7 +171,8 @@ def is_subgraph(g, h):
             
     return True
 
-def is_connected(m):
+def is_matrix_connected(m):
+    # TODO: Fix
     n = []
     for i in range(0, len(m[0])):
         row = []
@@ -199,7 +187,7 @@ def is_connected(m):
     else:
         return False
 
-def path_len(m, w, path):
+def path_length(m, w, path):
     length = 0
     for i in range(len(path)-1):
         u = path[i] - 1
