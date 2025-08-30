@@ -3,10 +3,10 @@
 [فارسی](./READMEFA.md) / English
 ## Quick Start
  - Run the CLI tool using:
-```bash
+```sh
 python3 main.py
 ```
 - For Windows:
-```batchscript
+```powershell
 python main.py
 ```
