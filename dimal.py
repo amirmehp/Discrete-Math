@@ -210,7 +210,7 @@ def dfs(graph, start, path):
         else:
             path.append(stack.pop())
 
-def euler_path(g):
+def eulerian_path(g):
     adj = {}
     for i in range(len(g)):
         adj[i] = []

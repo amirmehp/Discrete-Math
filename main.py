@@ -51,7 +51,10 @@ funcs = [
     "Path Length",
     "Symetric Closure",
     "Transmitive Closure",
-    "Transpose Matrix"
+    "Transpose Matrix",
+    "Calculate RoS",
+    "Eulerian Path",
+    "Dijkstra's Algorithm For Shortest Path"
 ]
 
 for func in funcs:
@@ -76,7 +79,7 @@ while True:
             if len(m1[0]) != len(m2):
                 error("Number of Columns of the First matrix are not equal to the Number of Rows of the Second matrix")
             else:
-                for row in bool_multiply(m1, m2):       
+                for row in bool_multiply(m1, m2):
                     print(row)
 
         case "2":
@@ -86,7 +89,7 @@ while True:
                 error(f"Wrong value: `{n1}`, it should be either 1 or 0")
             if n2 not in [1, 0]:
                 error(f"Wrong value: `{n2}`, it should be either 1 or 0")
-            
+
             print(bool_sum(n1, n2))
 
         case "3":
@@ -98,38 +101,38 @@ while True:
                 print(row)
         case "5":
             m = get_matrices(1)[0]
-            if is_matrix_antisymetric(m):
+            if is_matrix_antisymetric(m) == True:
                 print("The Matrix is Antisymetric")
             else:
-                print("The Matrix is NOT Antisymetric") 
+                print("The Matrix is NOT Antisymetric")
 
         case "6":
             m = get_matrices(1)[0]
             if is_matrix_connected(m):
                 print("The Matrix is Connected")
             else:
-                print("The Matrix is NOT Connected") 
+                print("The Matrix is NOT Connected")
 
         case "7":
             m = get_matrices(1)[0]
             if is_matrix_symetric(m):
                 print("The Matrix is Symetric")
             else:
-                print("The Matrix is NOT Symetric") 
+                print("The Matrix is NOT Symetric")
 
         case "8":
             m = get_matrices(1)[0]
-           if is_matrix_transitive(m):
+            if is_matrix_transitive(m):
                 print("The Matrix is Transitive")
             else:
-                print("The Matrix is NOT Transitive") 
+                print("The Matrix is NOT Transitive")
 
         case "9":
             m1, m2 = get_matrices(2)
             if is_subgraph(m):
                 print("The Matrix is Subgraph")
             else:
-                print("The Matrix is NOT Subgraph") 
+                print("The Matrix is NOT Subgraph")
 
         case "10":
             m1, m2 = get_matrices(2)
@@ -147,11 +150,11 @@ while True:
         case "13":
             print("Enter the Adjacency Matrix: ")
             m = get_matrices(1)[0]
-            
+
             print("\033[1mFor the Weight Matrix: \033[0m")
             rows = len(m)
             cols = len(m[0])
-            
+
             w = [[0]*cols]*rows
 
             for row in range(0, rows):
@@ -160,12 +163,12 @@ while True:
                     w[row][col] = cell
 
 
-                    
+
             path = []
             length = int(input("Enter your path length: "))
             for i in range(0, length):
                 path.append(int(input(f"Enter Path Node ({i}):")))
-                
+
             print(path_length(m, w, path))
 
         case "14":
@@ -179,6 +182,36 @@ while True:
         case "16":
             m = get_matrices(1)[0]
             print(transpose(m))
-            
+
+        case "17":
+            ms, mr = get_matrices(2)
+            print("RoS: ", bool_multiply(ms, mr))
+
+        case "18":
+            m = get_matrices(1)[0]
+            if eulerian_path(m):
+                print("Eulerian Path:", eulerian_path(m))
+            else:
+                print("Eulerian Path does not exist:(")
+
+        case "19":
+            print("Enter the Adjacency Matrix: ")
+            m = get_matrices(1)[0]
+
+            # TODO: Remove repeated code
+            print("\033[1mFor the Weight Matrix: \033[0m")
+            rows = len(m)
+            cols = len(m[0])
+
+            w = [[0]*cols]*rows
+
+            for row in range(0, rows):
+                for col in range(0, cols):
+                    cell = int(input(f"Enter the value for cell[{row}][{col}]: "))
+                    w[row][col] = cell
+                    
+            start = input("Enter the starting Node: ")
+            end = input("Enter the ending Node: ")
+            dijkstra(start, end, adj, weight)
         case default:
             print(f"Err: Invalid Input `{in1}`")
